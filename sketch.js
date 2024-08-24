@@ -2,33 +2,40 @@ let vidRef, dejavu;
 let asciiChars = `          '''"ia#░▒▓████`;
 let portada = true;
 
+
 function preload() {
+
   vidRef = createVideo("dino.mp4");
   dejavu = loadFont("./fonts/DejaVuSansMono.ttf");
 }
 
+
 function setup() {
+
   createCanvas(540, 960);
   windowResized()
 
   textFont(dejavu, 10);
   textAlign(CENTER, CENTER);
-  frameRate(12);
+  frameRate(30);
 
   vidRef.pause();
   vidRef.hide();
 }
 
+
 function draw() {
+
   background(0);
 
   if (portada) {
     push();
     translate(270, 593);
     fill(255);
-    textSize(50);
+    textSize(50 + (sin(frameCount * 0.15) + 1) * 6);
     text("CLICK", 0, 0);
     pop();
+    return;
   } 
 
   image(vidRef, 456, 30);
@@ -62,19 +69,19 @@ function draw() {
 
 
 function mouseReleased() {
+
   portada = false;
   vidRef.loop();
 }
+
 
 function windowResized() {
   
   let pag = document.getElementsByTagName("body")[0];
   let cnv = document.getElementById("defaultCanvas0");
   
-  // margen <== EDITABLE porcentaje entre 0% y 50%
   let mrg = 1; 
-  
-  // color de fondo <== EDITABLE pero mejor es hacerlo en css
+
   pag.style.backgroundColor = "rgb(40, 60, 60)";
   
   pag.style.overflow = "hidden";
